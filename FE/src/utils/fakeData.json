@@ -1,0 +1,37 @@
+[
+    {
+        "author_picture" : "https://www.dailysia.com/wp-content/uploads/2022/01/Gojo-Satoru_1-660x400.jpg?x62393",
+        "author_fullname" : "Bagas Riznanda",
+        "author_username" : "@bagasngidiw",
+        "posted_at" : "4H",
+        "content" : "Gua Keren Bat Dah",
+        "image" : "https://cdn0-production-images-kly.akamaized.net/U5n3_bZRyAEkOXWzXo7rVV_8usI=/800x450/smart/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/3394916/original/085554100_1615052842-liputan6-lamborghini-aventador-SVJ-01.jpg",
+        "likes_count" : 10,
+        "replies_count" : 5,
+        "is_liked" : true
+        
+    },
+    {
+        "author_picture" : "https://assets-a1.kompasiana.com/items/album/2022/05/30/eren-yeager-1-6294723353e2c32b47142933.jpg",
+        "author_fullname" : "Chandra Rizaldy",
+        "author_username" : "@chandra21",
+        "posted_at" : "4H",
+        "content" : "Gua Kece Dari Lahir",
+        "likes_count" : 20,
+        "replies_count" : 6,
+        "is_liked" : true
+
+    },
+    {
+        "author_picture" : "https://i.pinimg.com/564x/c2/29/ff/c229ff825833f254108abee2d276ef1a.jpg",
+        "author_fullname" : "Putriana",
+        "author_username" : "@putriiii",
+        "posted_at" : "2H",
+        "content" : "cantik bat gua cuy",
+        "image" : "https://i.ytimg.com/vi/MxVaqICXoFg/maxresdefault.jpg",
+        "likes_count" : 20,
+        "replies_count" : 10,
+        "is_liked" : true
+    } 
+    
+]
