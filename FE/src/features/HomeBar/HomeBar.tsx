@@ -1,11 +1,9 @@
-import { Card, CardBody, Button, Flex, Avatar, Text, FormControl, Input, Box } from '@chakra-ui/react'
+import { Card, CardBody, Button, Flex, Avatar, Text, FormControl, Input, Box, useColorMode } from '@chakra-ui/react'
 import { ThreadCard } from '../thread/ThreadCard';
 import { useHooks } from '../../hooks/useHooks';
 import { RootState } from '../../stores/types/rootState';
 import { useSelector } from 'react-redux';
-// import { AttachmentIcon } from '@chakra-ui/icons';
-// import { useState } from 'react';
-import { CloseIcon } from '@chakra-ui/icons';
+import { CloseIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { useRef } from 'react';
 
 
@@ -14,11 +12,15 @@ export function Homebar() {
     const { threads, previewImage, dataContent, fileInputRef, handleContentChange, handleImageChange, handleClosePreview, fetchCreatePost } = useHooks();
     const user = useSelector((state: RootState) => state.auth)
     const homebarRef = useRef<HTMLDivElement | null>(null);
+    const {toggleColorMode,colorMode} = useColorMode()
+    const isDark = colorMode === "dark"
+
     return (
         <>
-            <Card ref={homebarRef}  fontFamily={'Montserrat'} marginTop={'10px'} m={'3'} >
+            <Card ref={homebarRef} fontFamily={'Montserrat'} marginTop={'10px'} m={'3'} >
                 <CardBody>
                     <Text fontWeight={'bold'} fontSize={'2xl'} >Home</Text>
+                    <Button float={"right"} onClick={toggleColorMode} bg="transparent" > {isDark ? <SunIcon /> : <MoonIcon />} </Button>
                     <Flex marginTop={'20px'}>
                         <Avatar size={'md'} src={user.picture} />
                         <form onSubmit={fetchCreatePost}>

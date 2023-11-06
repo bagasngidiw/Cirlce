@@ -1,7 +1,7 @@
 import axios from "axios";  
 
 export const API = axios.create({
-    baseURL: "http://cirlce.vercel.app/api/v1"
+    baseURL: "https://cirlce.vercel.app/api/v1"
 })
 
 export function setAuthToken(token: string | null){

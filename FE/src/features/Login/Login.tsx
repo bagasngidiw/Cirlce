@@ -1,4 +1,5 @@
-import { Box, Text, Input, Button, Flex} from '@chakra-ui/react'
+import { MoonIcon, SunIcon } from '@chakra-ui/icons'
+import { Box, Text, Input, Button, Flex, useColorMode} from '@chakra-ui/react'
 import {
     FormControl,
     FormHelperText,
@@ -13,19 +14,15 @@ export function Login(){
 
 
     const {handleChange, handleLogin} = useLogin()
+    const {toggleColorMode,colorMode} = useColorMode()
+    const isDark = colorMode === "dark"
 
-    // const user = useSelector((state : RootState) => state.auth)
-
-    // const handleOnClick = () => {
-    //     console.log('Clicked user:', user);
-    //   };
-    
 
     return(
     
         <Box height={'100vh'} display={'flex'} justifyContent={'center'} alignItems={'center'}>
             <Box m={'auto'} width={'600px'}>
-                {/* <Button onClick={handleOnClick}>Pencat untuk Nerima datanya ya bang</Button> */}
+                <Button float={"right"} onClick={toggleColorMode} bg="transparent" > {isDark ? <SunIcon/>  : <MoonIcon/> } </Button>
                 <Box mb={4}>
                     <Text color={'green'} fontWeight={'bold'} fontSize={40}>circle</Text>
                     <Text color={'white'} fontWeight={'bold'} fontSize={'30'}>Login to Circle</Text>
