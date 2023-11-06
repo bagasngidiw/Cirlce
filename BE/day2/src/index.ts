@@ -1,7 +1,8 @@
 import exp = require("constants")
 import { AppDataSource } from "./data-source"
 // import { Thread } from "./entity/User"
-import * as express from "express";
+import express = require("express")
+
 import { Request, Response } from "express";
 import routes from "./routes";
 import processQueue from "./worker/threadWorker";

@@ -76,11 +76,10 @@ class ThreadService{
 
                 {
                     content,
-                    image: res.locals.filename,
+                    image: req.file.path,
                     user: loginSession
                 }
             )
-            
             const saveThread = await this.threadRepository.save(threads)
 
           return res.status(200).json(saveThread);

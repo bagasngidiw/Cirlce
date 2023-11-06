@@ -9,7 +9,6 @@ class ReplyService{
     async findReply(reqQuery: any): Promise<any>{
         try{
         const threadId = parseInt(reqQuery.threadById ?? 0)
-
             const reply = this.replyRepository.find({
                 relations: ["user"],
                 where: {

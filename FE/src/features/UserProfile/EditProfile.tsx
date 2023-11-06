@@ -32,11 +32,11 @@ export function EditUserProfile(){
                 </Box>
                 <form onSubmit={fetchUpdateUser}>
                     <FormControl>
-                        <Input value={user.full_name} onChange={handleNameChange} name='full_name' mb={4} _placeholder={{ opacity: 1, color: 'gray.500' }} type={'text'} borderColor={'gray'} color={'white'}/>
+                        <Input onChange={handleNameChange} name='full_name' mb={4} placeholder={'Name'} _placeholder={{ opacity: 1, color: 'gray.500' }} type={'text'} borderColor={'gray'} color={'white'}/>
 
-                        <Input value={user.username} onChange={handleUsernameChange} name='username' mb={4} _placeholder={{ opacity: 1, color: 'gray.500' }} type={'text'} borderColor={'gray'} color={'white'} />
+                        <Input onChange={handleUsernameChange} name='username' mb={4} placeholder={'Username'} _placeholder={{ opacity: 1, color: 'gray.500' }} type={'text'} borderColor={'gray'} color={'white'} />
                         
-                        <Input value={user.description} onChange={handleDescriptionChange} name='description' mb={4} _placeholder={{ opacity: 1, color: 'gray.500' }} type={'text'} borderColor={'gray'} color={'white'} />
+                        <Input onChange={handleDescriptionChange} name='description' mb={4} placeholder={'Description'} _placeholder={{ opacity: 1, color: 'gray.500' }} type={'text'} borderColor={'gray'} color={'white'} />
                         
                         <Input onChange={handleProfilePictureChange} name='picture' mb={4} _placeholder={{ opacity: 1, color: 'gray.500' }} type={'file'} borderColor={'gray'} color={'white'} ref={fileInputRef} />
                         

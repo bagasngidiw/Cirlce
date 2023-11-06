@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IFollow } from "../../interface/interface";
 
 const initialFollowState: { followState: string; follows: IFollow[] } = {
-  followState: "followers",
+  followState: "followings",
   follows: [],
 };
 

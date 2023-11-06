@@ -5,7 +5,9 @@ export interface IUser {
     full_name: string,
     username: string,
     email: string,
-    description: string
+    description: string,
+    followers_count?: number;
+    followings_count?: number;
 }
 
 export interface IThreadCard {
@@ -20,7 +22,7 @@ export interface IThreadCard {
 
 }
 
-export interface IThreadPost{
+export interface IThreadPost {
     content: string,
     image: Blob | MediaSource | string
 }
@@ -37,23 +39,24 @@ export interface IUserLogin {
     password: string
 }
 
-export interface IReply{
+export interface IReply {
     id?: number,
     content?: string,
     user?: IUser
 }
 
-export interface IReplyPost{
+export interface IReplyPost {
     content?: string,
     threadById?: number
 }
 
 export interface IFollow {
     id: number;
+    user?: IUser;
     user_id: number;
     username: string;
     full_name: string;
     email: string;
     picture: string;
     is_followed: boolean;
-  }
+}

@@ -112,27 +112,27 @@ class FollowsService {
             },
         });
         
-        console.log("masuk ga");
         if (!isUserExist) {
-            throw new Error("This user doesn't exist!");
+          throw new Error("This user doesn't exist!");
         }
-
-      const follow = this.followRepository.create({
-        follower: {
-          id: loginSession.user.id,
-        },
-        followed: {
-          id: reqBody.followed_user_id,
-        },
-      });
-
-      
-      await this.followRepository.save(follow);
-
-      return {
-        message: "You follow this user!",
-        follow: follow,
-      };
+        
+        const follow = this.followRepository.create({
+          follower: {
+            id: loginSession.user.id,
+          },
+          followed: {
+            id: reqBody.followed_user_id,
+          },
+        });
+        
+        
+        console.log("masuk ga");
+        await this.followRepository.save(follow);
+        
+        return {
+          message: "You follow this user!",
+          follow: follow,
+        };
     } catch (error) {
       throw new Error(error.message);
     }
@@ -168,7 +168,30 @@ class FollowsService {
     }
   }
 
-  
+  async findRandom(reqQuery?: any): Promise<any> {
+    try {
+      const limit = parseInt(reqQuery.limit ?? 0);
+      const users = await this.userRepository
+        .createQueryBuilder("users")
+        .select()
+        .orderBy("RANDOM()")
+        .take(limit)
+        .getMany();
+
+        return users.map((user) => ({
+          id: user.id,
+          user_id: user.id,
+          username: user.username,
+          name: user.full_name,
+          email: user.email,
+          profile_picture: user.picture,
+          profile_deskripsi: user.description,
+          is_followed: false
+      }));
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
 }
 
 export default new FollowsService();

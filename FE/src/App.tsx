@@ -16,6 +16,7 @@ import { AUTH_CHECK, AUTH_ERROR } from "./stores/rootReducer";
 import ClickAbleProfile from "./pages/home/ClickAbleProfile";
 import EditProfile from "./pages/Auth/editProfile";
 import Follows from "./pages/home/Follows";
+import { Search } from "./pages/home/Search";
 // import { useSelector } from "react-redux";
 // import { RootState } from "./stores/types/rootState";
 // import { CSSProperties } from "@emotion/serialize";
@@ -94,6 +95,7 @@ function App(){
                   <Route path="/editProfile/:id" element ={<EditProfile/>}></Route>
                   <Route path="/user/:id" element={<ClickAbleProfile/>}></Route>
                   <Route path="/follow" element={<Follows/>}></Route>
+                  <Route path="/search" element={<Search/>}></Route>
               </Routes>
       )}
         {/* </Router> */}

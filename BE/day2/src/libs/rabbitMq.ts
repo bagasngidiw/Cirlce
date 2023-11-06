@@ -1,4 +1,4 @@
-import * as amqp from 'amqplib'
+import amqp = require('amqplib') 
 
 
 export async function sendMessageQueue(queueName:string, payload: any): Promise<boolean> {

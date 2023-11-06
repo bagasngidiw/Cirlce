@@ -1,19 +1,20 @@
 import { Card, CardHeader, CardBody, Avatar, Text, Box, Image, Button, VStack, Flex, HStack } from '@chakra-ui/react'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { API } from '../../lib/api';
-import { GET_FOLLOWS, SET_FOLLOW_STATE } from '../../stores/rootReducer';
+import { IFollow } from '../../interface/interface';
+import { API, setAuthToken } from '../../lib/api';
+import { GET_FOLLOWS, SET_FOLLOW } from '../../stores/rootReducer';
 import { RootState } from '../../stores/types/rootState'
 
-export function RightBar({followData} : any) {
+export function RightBar() {
     const dispatch = useDispatch();
-    
+
     const followState = useSelector(
         (state: RootState) => state.follow.followState
     );
     const user = useSelector((state: RootState) => state.auth)
-    
+
     async function getFollowData() {
         const response = await API.get(`/follow?type=${followState}`);
 
@@ -22,12 +23,6 @@ export function RightBar({followData} : any) {
     useEffect(() => {
         getFollowData();
     }, [followState]);
-
-
-    // //jumlah followers
-
-    // //jumlah followings
-
 
     return (
         <Card fontFamily={'Montserrat'} width="500px" marginTop={'10px'} bg={'blackAlpha.600'} textColor={'white'}>
@@ -48,11 +43,6 @@ export function RightBar({followData} : any) {
                             <Button textColor={'white'} borderRadius={'10px'} bg={'transparent'} border={'2px solid grey'} size={'sm'} marginTop={'10px'}>Edit Profile</Button>
                         </Link>
                     </Flex>
-
-                    {/* <Box display={'Flex'} justifyContent={'space-between'} bg={'red'} width='50%'>
-                    <Button justifyContent={'end'}></Button>
-                </Box> */}
-
                 </Box>
 
             </CardHeader>
@@ -62,11 +52,11 @@ export function RightBar({followData} : any) {
                 <Text>{user.description}</Text>
                 <Box display={'flex'}>
                     <Box display={'flex'} marginRight={'20px'}>
-                        <Text marginRight={'5px'} fontWeight={'bold'}></Text>
+                        <Text marginRight={'5px'} fontWeight={'bold'}>{user.followings_count ?? 0}</Text>
                         <Text>Following</Text>
                     </Box>
                     <Box display={'flex'}>
-                        <Text marginRight={'5px'} fontWeight={'bold'}></Text>
+                        <Text marginRight={'5px'} fontWeight={'bold'}>{user.followers_count ?? 0}</Text>
                         <Text>Followers</Text>
                     </Box>
                 </Box>
@@ -74,80 +64,89 @@ export function RightBar({followData} : any) {
         </Card>
     )
 }
-
 export function SuggestionBar() {
+
+    const [randomUser, setRandomUser] = useState<IFollow[]>()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        const random = async () => {
+            try {
+                setAuthToken(localStorage.token)
+                const response = await API.get(`/follows`)
+                setRandomUser(response.data)
+            } catch (error) {
+                console.log("error di suggest", error);
+
+            }
+        }
+        random()
+    }, [])
+
+    async function handleFollow(
+        id: number,
+        followedUserId: number,
+        isFollowed: boolean
+    ) {
+        try {
+            if (!isFollowed) {
+                await API.post(`/follow`, {
+                    followed_user_id: followedUserId,
+                });
+                dispatch(SET_FOLLOW({ id: id, isFollowed: isFollowed }));
+                console.log("Followed: ", id);
+
+            } else {
+                await API.delete(`/follow/${followedUserId}`);
+                dispatch(SET_FOLLOW({ id: id, isFollowed: isFollowed }));
+                console.log("Unfollowed: ", id);
+
+
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     return (
-        <Card fontFamily={'Montserrat'} marginTop={'15px'} bg={'blackAlpha.600'} textColor={'white'}>
-            <CardHeader>
-                <Text fontWeight={'bold'} fontSize={'2xl'}>Suggested For You</Text>
-            </CardHeader>
-            <CardBody marginTop={'-20px'} display={'flex'} >
-                <Flex justifyContent={'space-between'} w={"100%"}>
-                    <Avatar src='https://i0.wp.com/esportsnesia.com/wp-content/uploads/2021/09/ONIC-Butss-1.jpg' />
-                    <VStack marginLeft={'-200px'} spacing={'0'}>
-                        <Text fontWeight={'bold'} fontSize={'15px'}>msatrya</Text>
-                        <Text fontSize={'10px'}>@onic_buuts</Text>
-                    </VStack>
-                    <Flex ms='5' alignItems={'center'}>
-                        <Button border='1px'>Following</Button>
-                    </Flex>
-                </Flex>
-            </CardBody>
-            <CardBody marginTop={'-20px'} display={'flex'}>
-                <Flex justifyContent={'space-between'} w={"100%"}>
-                    <Avatar src='https://cdn-2.tstatic.net/tribunnews/foto/bank/images/profil-kiboy-salah-satu-roster-onic-esports-yang-meraih-gelar-mvp.jpg' />
-                    <VStack marginLeft={'-200px'} spacing={'0'}>
-                        <Text fontWeight={'bold'} fontSize={'15px'}>kiboy</Text>
-                        <Text fontSize={'10px'}>@onic_kiboy</Text>
-                    </VStack>
-                    <Flex ms='5' alignItems={'center'}>
-                        <Button border='1px'>Following</Button>
-                    </Flex>
-                </Flex>
-
-            </CardBody>
-            <CardBody marginTop={'-20px'} display={'flex'}>
-                <Flex justifyContent={'space-between'} w={"100%"}>
-                    <Avatar src='https://dailyspin.id/wp-content/uploads/2023/01/ONIC-Sanz.jpg' />
-                    <VStack marginLeft={'-200px'} spacing={'0'}>
-                        <Text fontWeight={'bold'} fontSize={'15px'}>S A N Z</Text>
-                        <Text fontSize={'10px'}>@onic_SANZ</Text>
-                    </VStack>
-                    <Flex ms='5' alignItems={'center'}>
-                        <Button border='1px'>Following</Button>
-                    </Flex>
-                </Flex>
-
-            </CardBody>
-            <CardBody marginTop={'-20px'} display={'flex'} >
-                <Flex justifyContent={'space-between'} w={"100%"}>
-                    <Avatar src='https://www.indoesports.com/storage/images/onic-cw-2-6-mar-2022.jpg' />
-                    <VStack marginLeft={'-200px'} spacing={'0'}>
-                        <Text fontWeight={'bold'} fontSize={'15px'}>CW</Text>
-                        <Text fontSize={'10px'}>@onic_CW</Text>
-                    </VStack>
-                    <Flex ms='5' alignItems={'center'}>
-                        <Button border='1px'>Following</Button>
-                    </Flex>
-                </Flex>
-            </CardBody>
-            <CardBody marginTop={'-20px'} display={'flex'}>
-                <Flex justifyContent={'space-between'} w={"100%"}>
-                    <Avatar src='https://dailyspin.id/wp-content/uploads/2021/02/Drian-MPL-Season-7.jpg' />
-                    <VStack marginLeft={'-200px'} spacing={'0'}>
-                        <Text fontWeight={'bold'} fontSize={'15px'}>Drian</Text>
-                        <Text fontSize={'10px'}>@onic_Drian</Text>
-                    </VStack>
-                    <Flex ms='5' alignItems={'center'}>
-                        <Button border='1px'>Following</Button>
-                    </Flex>
-                </Flex>
-
-            </CardBody>
-        </Card>
+        <>
+            <Card fontFamily={'Montserrat'} marginTop={'15px'} bg={'blackAlpha.600'} textColor={'white'}>
+                <CardHeader>
+                    <Text fontWeight={'bold'} fontSize={'2xl'}>Suggested For You</Text>
+                </CardHeader>
+                {randomUser && randomUser.map((data, i) => (
+                    <Box display={"flex"} width="100%" padding={"20px 0px"} key={i}>
+                        <Image
+                            src={data.picture}
+                            width={"50px"}
+                            height={"50px"}
+                            objectFit={"cover"}
+                            borderRadius={"50%"}
+                            ml={7}
+                            alt="ini pp"
+                        />
+                        <Box display={"flex"} width={"100%"}>
+                            <Box display={"flex"} flexDirection={"column"} gap={2} flex={2}>
+                                <Box display={"flex"}>
+                                    {/* <Text>{props.full_name}</Text> */}
+                                    <Text>{data.full_name}</Text>
+                                </Box>
+                                <Text color="brand.grey">@{data.username}</Text>
+                            </Box>
+                            <Box mr={6} flex={1} display="flex" justifyContent={"flex-end"}>
+                                <Button onClick={() =>
+                                    handleFollow(data.id, data.user_id, data.is_followed)
+                                }>
+                                    {data.is_followed ? "Unfollow" : "Follow"}
+                                </Button>
+                            </Box>
+                        </Box>
+                    </Box>
+                ))}
+            </Card>
+        </>
     )
 }
-
 export function DevelopedByYourName() {
     return (
         <Card fontFamily={'Montserrat'} marginTop={'15px'} bg={'blackAlpha.600'} textColor={'white'}>

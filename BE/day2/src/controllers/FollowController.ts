@@ -40,6 +40,16 @@ class FollowsController {
       return res.status(500).json({ error: error.message });
     }
   }
+  async findRandom(req: Request, res: Response) {
+    try {
+        const response = await FollowService.findRandom(req.query)
+
+        return res.status(200).json(response)
+    } catch (error) {
+        return res.status(500).json({error: error.message})
+    }
+}
+
 }
 
 export default new FollowsController();

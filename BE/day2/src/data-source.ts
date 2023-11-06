@@ -8,14 +8,14 @@ import { Reply } from "./entities/Reply"
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "localhost",
-    port: 5432,
+    host: "viaduct.proxy.rlwy.net",
+    port: 21776,
     username: "postgres",
-    password: "password123",
-    database: "threads_db",
+    password: "-GD66abaeabbc4-1*-4gfad6adD*EeA3",
+    database: "railway",
     synchronize: true,
     logging: false,
     entities: [User, Thread, Likes, Follow, Reply],
-    migrations: [],
+    migrations: ["src/migration/*.ts"],
     subscribers: [],
 })

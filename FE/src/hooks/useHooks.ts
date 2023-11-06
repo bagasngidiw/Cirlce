@@ -12,7 +12,9 @@ export function useHooks(){
    
     const threads = useSelector((state: RootState )=> state.thread.threads)
     const [dataContent, setContent] = useState("")
+    
     const [dataImage, setImage] = useState<File | null | Blob | string>(null)
+
     const [previewImage, setPreviewImage] = useState<string | null >()
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const dispatch = useDispatch()
@@ -93,8 +95,6 @@ export function useHooks(){
             console.error('Error creating thread:', error);
 
         }
-
-
     }
 
     

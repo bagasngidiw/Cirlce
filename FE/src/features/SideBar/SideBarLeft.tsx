@@ -2,18 +2,10 @@ import "./sideBarLeft.css"
 import { Box, Text, ListItem, UnorderedList, Button } from '@chakra-ui/react'
 import { Link } from "react-router-dom"
 import { useLogin } from "../../hooks/authHooks"
-import { useRef } from "react"
 
 const SideBar = () => {
 
     const { handleLogout } = useLogin()
-    const homebarRef = useRef<HTMLDivElement | null>(null);
-
-    const handleCreatePostClick = () => {
-        if (homebarRef.current) {
-            homebarRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    };
 
     return (
 
@@ -24,7 +16,9 @@ const SideBar = () => {
                     <Link to={'/'}>
                         <ListItem as={'span'} cursor={'pointer'}><i id="item" className="fa-solid fa-house"></i>Home</ListItem>
                     </Link>
-                    <ListItem><i id="item" className="fa-solid fa-magnifying-glass"></i>Search</ListItem>
+                    <Link to={'/search'}>
+                        <ListItem><i id="item" className="fa-solid fa-magnifying-glass"></i>Search</ListItem>
+                    </Link>
                     <Link to={'/follow'}>
                         <ListItem><i id="item" className="fa-regular fa-heart"></i>Follow</ListItem>
                     </Link>
@@ -33,7 +27,7 @@ const SideBar = () => {
                     </Link>
                 </UnorderedList>
                 <Box marginLeft={'15px'} justifyContent={'center'}>
-                    <Button onClick={handleCreatePostClick} marginBottom={'15px'} borderRadius={'20px'} w={'150%'} bg={'green'} color={'white'} _hover={{ bg: 'green.700' }}>
+                    <Button marginBottom={'15px'} borderRadius={'20px'} w={'150%'} bg={'green'} color={'white'} _hover={{ bg: 'green.700' }}>
                         Create Post
                     </Button>
                 </Box>

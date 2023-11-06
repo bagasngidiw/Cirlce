@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import * as express from "express";
+import  express = require('express')
 import ThreadController from "../controllers/ThreadController";
 import UserController from "../controllers/UserController";
 import authenticate from "../middlewares/UserMw";
@@ -8,6 +8,7 @@ import LikesController from "../controllers/LikesController";
 import ReplyController from "../controllers/ReplyController";
 import ThreadsQueue from "../queues/ThreadsQueue";
 import FollowController from "../controllers/FollowController";
+import SearchController from "../controllers/SearchController";
 
 const router = express.Router();
 
@@ -19,7 +20,7 @@ router.get("/", (req: Request, res: Response) =>{
 router.get("/threads", authenticate, ThreadController.find)
 
 // create
-router.post("/threads", authenticate, upload('image'), ThreadsQueue.create)
+router.post("/threads", authenticate, upload('image'), ThreadController.create)
 
 // update
 router.patch("/threads/:id", ThreadController.update)
@@ -55,7 +56,7 @@ router.post("/auth/register", UserController.create)
 router.post("/auth/login", UserController.Login)
 
 //Check
-router.get("/auth/check", authenticate, UserController.Checking)
+router.get("/auth/check", authenticate, UserController.check)
 
 //GetAllUser
 router.get("/users", authenticate, UserController.GetAll)
@@ -71,8 +72,12 @@ router.patch("/user/:id", authenticate, upload('picture'), UserController.Update
 // getAll follow
 router.get("/follow", authenticate, FollowController.find);
 
+// findrandom
+router.get('/follows', authenticate, FollowController.findRandom)
+
 // create Follow
 router.post("/follow", authenticate, FollowController.create);
+
 
 // unfollow
 router.delete(
@@ -81,5 +86,10 @@ router.delete(
   FollowController.delete
 );
 
+// -------------------------------------------------------
 
-export default router;
+// search
+router.get("/search", authenticate, SearchController.findAll)
+
+
+export default router;  

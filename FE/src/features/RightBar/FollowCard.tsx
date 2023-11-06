@@ -1,5 +1,6 @@
 import { Box, Button, Image, Text } from "@chakra-ui/react";
 import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { IFollow } from "../../interface/interface";
 import { API } from "../../lib/api";
 import { SET_FOLLOW } from "../../stores/rootReducer";
@@ -17,9 +18,14 @@ export function FollowCard(props: IFollow) {
           followed_user_id: followedUserId,
         });
         dispatch(SET_FOLLOW({ id: id, isFollowed: isFollowed }));
+        console.log("Followed: ", id);
+
       } else {
         await API.delete(`/follow/${followedUserId}`);
         dispatch(SET_FOLLOW({ id: id, isFollowed: isFollowed }));
+        console.log("Unfollowed: ", id);
+
+
       }
     } catch (err) {
       console.log(err);
@@ -29,16 +35,17 @@ export function FollowCard(props: IFollow) {
   return (
     <>
       <Box display={"flex"} width="100%" padding={"20px 0px"}>
-        <Image
-          src={props.picture ?? "/user-placeholder.png"}
-          width={"50px"}
-          height={"50px"}
-          objectFit={"cover"}
-          borderRadius={"50%"}
-          marginRight={"20px"}
-          alt="user_profile_image"
-        />
-
+        <Link to={"/user/" + props.user?.id}>
+          <Image
+            src={props.picture ?? "/user-placeholder.png"}
+            width={"50px"}
+            height={"50px"}
+            objectFit={"cover"}
+            borderRadius={"50%"}
+            marginRight={"20px"}
+            alt="ini pp"
+          />
+        </Link>
         <Box display={"flex"} width={"100%"}>
           <Box display={"flex"} flexDirection={"column"} gap={2} flex={2}>
             <Box display={"flex"}>
