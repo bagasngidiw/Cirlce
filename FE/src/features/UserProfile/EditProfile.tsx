@@ -3,18 +3,14 @@ import { Box, Text, Input, Button, HStack, IconButton, Flex} from '@chakra-ui/re
 import {
     FormControl,
   } from '@chakra-ui/react'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useEditProfile } from '../../hooks/useEdit'
-import { RootState } from '../../stores/types/rootState'
 
 
-  
 export function EditUserProfile(){
 
 
     const {previewImage, fileInputRef, handleNameChange, handleClosePreview, handleDescriptionChange, handleUsernameChange, handleProfilePictureChange, fetchUpdateUser} = useEditProfile()
-    const user = useSelector((state : RootState) => state.auth)
 
     return(
     

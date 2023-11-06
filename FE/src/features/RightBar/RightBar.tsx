@@ -1,4 +1,4 @@
-import { Card, CardHeader, CardBody, Avatar, Text, Box, Image, Button, VStack, Flex, HStack } from '@chakra-ui/react'
+import { Card, CardHeader, CardBody, Avatar, Text, Box, Image, Button, Flex, HStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
